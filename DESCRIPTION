@@ -1,6 +1,6 @@
 Package: tidyft
-Title: Tidy Verbs for Fast Data Operations by Reference
-Version: 0.4.5
+Title: Fast and Memory Efficient Data Operations in Tidy Syntax
+Version: 0.5.7
 Authors@R: 
     person(given = "Tian-Yuan",
            family = "Huang",
@@ -17,14 +17,13 @@ URL: https://github.com/hope-data-science/tidyft,
 BugReports: https://github.com/hope-data-science/tidyft/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.1
 Imports: data.table (>= 1.12.8), stringr (>= 1.4.0), fst (>= 0.9.0)
-Suggests: knitr, rmarkdown, profvis, dplyr
+Suggests: knitr, rmarkdown, profvis, dplyr, dtplyr
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-04-09 10:30:27 UTC; Hope
+Packaged: 2023-01-06 14:16:51 UTC; DELL
 Author: Tian-Yuan Huang [aut, cre] (<https://orcid.org/0000-0002-3591-4203>)
 Maintainer: Tian-Yuan Huang <huang.tian-yuan@qq.com>
 Repository: CRAN
-Date/Publication: 2020-04-10 10:20:02 UTC
+Date/Publication: 2023-01-08 14:40:01 UTC
