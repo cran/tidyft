@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -17,7 +17,7 @@ class(b)
 
 # convert codes
 lapply(ls(),get) %>%
-  lapply(setDT) %>% 
+  lapply(setDT) %>%
   invisible()
 
 # after
@@ -45,29 +45,28 @@ summary_fst(ft)
 ls() # only the ft exists
 
 ## -----------------------------------------------------------------------------
-ft %>% 
+ft %>%
   slice_fst(5555:6666)  # get 5555 to 6666 row
 
 ## -----------------------------------------------------------------------------
 
 sys_time_print({
-  res =  ft %>% 
-   select_fst(Species,Sepal.Length,Sepal.Width) %>% 
-   rename(group = Species,sl = Sepal.Length,sw = Sepal.Width) %>% 
-   arrange(group,sl) %>% 
-   filter(sl > 5) %>% 
-   distinct(sl,.keep_all = TRUE) %>% 
+  res =  ft %>%
+   select_fst(Species,Sepal.Length,Sepal.Width) %>%
+   rename(group = Species,sl = Sepal.Length,sw = Sepal.Width) %>%
+   arrange(group,sl) %>%
+   filter(sl > 5) %>%
+   distinct(sl,.keep_all = TRUE) %>%
    summarise(sw = max(sw),by = group)
 })
 
 res
-  
+
 
 ## -----------------------------------------------------------------------------
 
 rm(list = ls())
 
-library(profvis)
 library(data.table)
 library(dplyr)
 library(dtplyr)
@@ -82,57 +81,53 @@ dim(dt)
 as_fst(dt) -> ft
 # remove the data.frame from RAM
 rm(dt)
-  
 
-profvis({
-  
-  res1 = ft %>% 
-    select_fst(Species,Sepal.Length,Sepal.Width,Petal.Length) %>% 
-    dplyr::select(-Petal.Length) %>% 
-    dplyr::rename(group = Species,sl = Sepal.Length,sw = Sepal.Width) %>% 
-    dplyr::arrange(group,sl) %>% 
-    dplyr::filter(sl > 5) %>% 
-    dplyr::distinct(sl,.keep_all = TRUE) %>% 
-    dplyr::group_by(group) %>% 
-    dplyr::summarise(sw = max(sw))
-  
-  res2 = ft %>% 
-    select_fst(Species,Sepal.Length,Sepal.Width,Petal.Length) %>% 
-    lazy_dt() %>% 
-    dplyr::select(-Petal.Length) %>% 
-    dplyr::rename(group = Species,sl = Sepal.Length,sw = Sepal.Width) %>% 
-    dplyr::arrange(group,sl) %>% 
-    dplyr::filter(sl > 5) %>% 
-    dplyr::distinct(sl,.keep_all = TRUE) %>% 
-    dplyr::group_by(group) %>% 
-    dplyr::summarise(sw = max(sw)) %>% 
-    as.data.table()
-  
-  res3 = ft[,c("Species","Sepal.Length","Sepal.Width","Petal.Length")] %>%  
+
+bench::mark(
+
+  dplyr = ft %>%
+    select_fst(Species,Sepal.Length,Sepal.Width,Petal.Length) %>%
+    dplyr::select(-Petal.Length) %>%
+    dplyr::rename(group = Species,sl = Sepal.Length,sw = Sepal.Width) %>%
+    dplyr::arrange(group,sl) %>%
+    dplyr::filter(sl > 5) %>%
+    dplyr::distinct(sl,.keep_all = TRUE) %>%
+    dplyr::group_by(group) %>%
+    dplyr::summarise(sw = max(sw)),
+
+  dtplyr = ft %>%
+    select_fst(Species,Sepal.Length,Sepal.Width,Petal.Length) %>%
+    lazy_dt() %>%
+    dplyr::select(-Petal.Length) %>%
+    dplyr::rename(group = Species,sl = Sepal.Length,sw = Sepal.Width) %>%
+    dplyr::arrange(group,sl) %>%
+    dplyr::filter(sl > 5) %>%
+    dplyr::distinct(sl,.keep_all = TRUE) %>%
+    dplyr::group_by(group) %>%
+    dplyr::summarise(sw = max(sw)) %>%
+    as.data.table(),
+
+  data.table = ft[,c("Species","Sepal.Length","Sepal.Width","Petal.Length")] %>%
     setDT() %>%
-    .[,.SD,.SDcols = -"Petal.Length"] %>% 
+    .[,.SD,.SDcols = -"Petal.Length"] %>%
     setnames(old =c("Species","Sepal.Length","Sepal.Width"),
-             new = c("group","sl","sw")) %>% 
-    setorder(group,sl) %>% 
-    .[sl>5] %>% unique(by = "sl") %>% 
-    .[,.(sw = max(sw)),by = group]
-  
-  
-  res4 =  ft %>% 
-    tidyft::select_fst(Species,Sepal.Length,Sepal.Width,Petal.Length) %>% 
-    tidyft::select(-Petal.Length) %>% 
-    tidyft::rename(group = Species,sl = Sepal.Length,sw = Sepal.Width) %>% 
-    tidyft::arrange(group,sl) %>% 
-    tidyft::filter(sl > 5) %>% 
-    tidyft::distinct(sl,.keep_all = TRUE) %>% 
-    tidyft::summarise(sw = max(sw),by = group)
-  
-  
-})
+             new = c("group","sl","sw")) %>%
+    setorder(group,sl) %>%
+    .[sl>5] %>% unique(by = "sl") %>%
+    .[,.(sw = max(sw)),by = group],
 
-setequal(res1,res2)
-setequal(res2,res3)
-setequal(res3,res4)
+
+  tidyft =  ft %>%
+    tidyft::select_fst(Species,Sepal.Length,Sepal.Width,Petal.Length) %>%
+    tidyft::select(-Petal.Length) %>%
+    tidyft::rename(group = Species,sl = Sepal.Length,sw = Sepal.Width) %>%
+    tidyft::arrange(group,sl) %>%
+    tidyft::filter(sl > 5) %>%
+    tidyft::distinct(sl,.keep_all = TRUE) %>%
+    tidyft::summarise(sw = max(sw),by = group),
+
+  check = setequal
+)
 
 
 ## -----------------------------------------------------------------------------

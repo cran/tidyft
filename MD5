@@ -1,6 +1,6 @@
-e0f7ecbe50cd6c833e322c72a2dadb47 *DESCRIPTION
+82e8a959c8ab61d01727ac79b599d524 *DESCRIPTION
 fa46fdeb983d6f95819a21a3bebdd744 *LICENSE
-12f815562176efa2b8fd79d46ad91104 *NAMESPACE
+673dca2ae58664c76e46148c2794ff38 *NAMESPACE
 4c3c1894589ff7bd82a967c9ffeafb6c *R/arrange.R
 df39ca414af7ed0b4e67fd28557041b4 *R/as_fst.R
 301bfff65ee39f884c5431064a7df9aa *R/complete.R
@@ -36,10 +36,10 @@ cedafb88e11db320a61ee80d82cf2d08 *R/tidymat.R
 a46c325919c4330d799705fc85c1266f *R/uncount.R
 8c3211e4c45ed1070cebf58958e8a706 *R/unite.R
 ecdac9e35b5bc10e440d4180ab9b5145 *R/utf8.R
-51d24c47cb654d2ec2b3c2415731b137 *build/vignette.rds
-a2e51f50d821c98a256569f43a17c647 *inst/doc/Introduction.R
-5cfbac7f4ae89a485e801d4ed1e848eb *inst/doc/Introduction.Rmd
-242c4f6f80959f5d8f93f2041b956a96 *inst/doc/Introduction.html
+315c7fef89fed0a1f62d239ebbbcdad2 *build/vignette.rds
+924136b04ed3e48f66104038d5cc9aa1 *inst/doc/Introduction.R
+069ddc15e1667f84a6c6a916b7527558 *inst/doc/Introduction.Rmd
+6248a62f5999822333d11be24b81add8 *inst/doc/Introduction.html
 f1b813e6d49f7dff8c8ea6ff6709cd35 *man/arrange.Rd
 ddc3ce238727070df44f72f440c9c71a *man/as_fst.Rd
 fa63c0949dbbb8902e7d2145e2257c22 *man/complete.Rd
@@ -76,4 +76,4 @@ b855d008c6b7c2f4a1cea9582c819bfb *man/sys_time_print.Rd
 dc8960d2d778a2cefd5ba9a349dbcd3e *man/uncount.Rd
 de71d7edd9080d37b571003096f91479 *man/unite.Rd
 284f097edb09a8f3b12f86786d639187 *man/utf8_encoding.Rd
-5cfbac7f4ae89a485e801d4ed1e848eb *vignettes/Introduction.Rmd
+069ddc15e1667f84a6c6a916b7527558 *vignettes/Introduction.Rmd
